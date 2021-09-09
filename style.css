@@ -10,8 +10,8 @@ body {
     -o-background-size: cover;
     background-size: cover;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 2px 2px 2px #474747;
+    font-family: 'Roboto', sans-serif;
+    text-shadow: 1px 1px 5px #474747;
 }
 
 main {
@@ -27,6 +27,53 @@ main {
     justify-content: space-between;
 }
 
+#crypto-top {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+#crypto-name {
+    margin-left: 10px;
+}
+
+#crypto-bottom {
+    margin-top: 10px;
+    font-size: 1.125rem;
+}
+
+.fa-bullseye {
+    color: red;
+}
+
+.fa-arrow-up,
+.fa-arrow-down {
+    color: rgb(255, 183, 0);
+}
+
+#weather {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: right;
+    justify-content: flex-end;
+}
+
+#weather > img {
+    width: 85px;
+}
+
+#temperature {
+    font-size: 3rem;
+}
+
+#feels-like,
+#weather-city {
+    margin: 0;
+    width: 100%;
+}
+
 #time {
     text-align: center;
+    font-size: 4rem;
 }
