@@ -54,10 +54,7 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
 
 // Weather
 navigator.geolocation.getCurrentPosition((position) => {
-  // fetch(`api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=3853bfd17fea2eb49ab64c0a91403c1c`)
-  fetch(
-    `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`
-  )
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=3853bfd17fea2eb49ab64c0a91403c1c`)
     .then((response) => {
       if (!response.ok) {
         throw Error("Weather information not available");
