@@ -3,16 +3,16 @@ const cryptoTop = document.getElementById("crypto-top");
 const cryptoBottom = document.getElementById("crypto-bottom");
 const weather = document.getElementById("weather");
 const time = document.getElementById("time");
-
+const sports = document.getElementById("sports");
 
 // Unsplash Image
 fetch(
   "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=beach"
 )
-  .then(response => response.json())
-  .then(data => {
+  .then((response) => response.json())
+  .then((data) => {
     // console.log(data.urls.regular)
-    document.body.style.backgroundImage = `url(${data.urls.regular})`;
+    document.body.style.backgroundImage = `url(${data.urls.full})`;
     author.textContent = `Photo by: ${data.user.name}`;
   })
   .catch((error) => {
@@ -22,15 +22,14 @@ fetch(
     author.textContent = "Photo by: Marcel Schreiber";
   });
 
-
 // Crypto Info
 fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
-  .then(response => response.json())
-  .then(data => {
+  .then((response) => response.json())
+  .then((data) => {
     cryptoTop.innerHTML = `
         <img src=${data.image.small}>
         <span id="crypto-name">${data.name}</span>
-    `
+    `;
 
     cryptoBottom.innerHTML = `
         <div>
@@ -45,7 +44,7 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
         <i class="fas fa-arrow-down"></i>
             <span>$ ${data.market_data.low_24h.cad}</span>
         </div>
-    `
+    `;
 
     console.log(data.market_data.current_price.cad);
   })
@@ -53,36 +52,58 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
     console.error("oh no! error!");
   });
 
-
 // Weather
-navigator.geolocation.getCurrentPosition(position => {
-    // fetch(`api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=3853bfd17fea2eb49ab64c0a91403c1c`)
-    fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`)
-        .then(response => {
-            if (!response.ok) {
-                throw Error("Weather information not available")
-            }
-            return response.json()
-        })
-        .then(data => {
-            console.log(data)
-            const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-            
-            weather.innerHTML = `
+navigator.geolocation.getCurrentPosition((position) => {
+  // fetch(`api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=3853bfd17fea2eb49ab64c0a91403c1c`)
+  fetch(
+    `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw Error("Weather information not available");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+      weather.innerHTML = `
                 <img src=${iconUrl} id="weather-icon">
                 <span id="temperature">${Math.round(data.main.temp)}°</span>
-                <p id="feels-like">Feels like: ${Math.round(data.main.feels_like)}°</p>
+                <p id="feels-like">Feels like: ${Math.round(
+                  data.main.feels_like
+                )}°</p>
                 <p id="weather-city">${data.name}</p>    
-            `
-        })
-        .catch(error => console.error(error))
-})
-
+            `;
+    })
+    .catch((error) => console.error(error));
+});
 
 // Current Time
 function getTime() {
-    const today = new Date();
-    time.textContent = today.toLocaleTimeString("en-US", {timeStyle: "medium"})
+  const today = new Date();
+  time.textContent = today.toLocaleTimeString("en-US", { timeStyle: "medium" });
 }
 
 setInterval(getTime, 1000);
+
+// Sports
+const date = new Date();
+const thisYear = date.getFullYear();
+
+fetch("http://site.api.espn.com/apis/site/v2/sports/basketball/wnba/news")
+  .then(response => response.json())
+  .then(data => {
+        console.log(data)
+
+      sports.innerHTML = `
+        <h1 id="sports-news-header"><i class="fas fa-basketball-ball fa-lg"></i> ${data.header}</h1>
+        <a href=${data.articles[0].links.web.short.href}>
+            <h4 id="headline">${data.articles[0].headline.substr(0, 30)}...</h3>
+        </a>
+      `
+    })
+  .catch(error => {
+    console.error(error);
+  })

@@ -15,16 +15,18 @@ body {
 }
 
 main {
-    padding: 1rem;
+    padding: 1.5rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.top {
+.top,
+.bottom {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #crypto-top {
@@ -71,9 +73,37 @@ main {
 #weather-city {
     margin: 0;
     width: 100%;
+    font-size: 1.125rem;
 }
 
 #time {
     text-align: center;
     font-size: 4rem;
+}
+
+#author {
+    align-self: flex-end;
+    font-size: 1.125rem;
+}
+
+#sports {
+    text-align: right;
+}
+
+a {
+    color: #ffffff;
+    font-style: italic;
+}
+
+.fa-basketball-ball {
+    color: orange;
+}
+
+#sports-news-header {
+    margin: 0;
+}
+
+#headline {
+    margin-top: 5px;
+    font-size: 1.125rem;
 }
