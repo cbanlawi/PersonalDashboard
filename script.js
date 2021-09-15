@@ -89,7 +89,7 @@ setInterval(getTime, 1000);
 const date = new Date();
 const thisYear = date.getFullYear();
 
-fetch("http://site.api.espn.com/apis/site/v2/sports/basketball/wnba/news")
+fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/news")
   .then(response => response.json())
   .then(data => {
         console.log(data)
